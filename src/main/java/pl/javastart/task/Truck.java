@@ -21,12 +21,18 @@ public class Truck extends Car {
 
     @Override
     public void turnOnAc() {
-        super.turnOnAc();
+        if (!isAcOn()) {
+            setAcOn(true);
+            setAvgFuelConsumption(getAvgFuelConsumption() + ADD_FUEL_WHEN_AC_IS_ON);
+        }
     }
 
     @Override
-    public void turnAcOff() {
-        super.turnAcOff();
+    public void turnOffAc() {
+        if (isAcOn()) {
+            setAcOn(false);
+            setAvgFuelConsumption(getAvgFuelConsumption() - ADD_FUEL_WHEN_AC_IS_ON);
+        }
     }
 
     @Override
@@ -36,22 +42,18 @@ public class Truck extends Car {
     }
 
     @Override
-    double distanceInKm() {
-        double tankCapacity = getTankCapacity();
-        double distance100km = 100;
-        double avgFuelConsumptionWithAcOn = getAvgFuelConsumption() + ADD_FUEL_WHEN_AC_IS_ON;
-        double multiplierFor100KgLoad = getLoadWeight() / LOAD_IN_KG;
-        double addFuelConsumptionWhenDriveWithLoad = multiplierFor100KgLoad * ADD_FUEL_WHEN_DRIVE_WITH_LOAD;
+    public double currentConsumption() {
         double avgFuelConsumption = getAvgFuelConsumption();
-        double carDistanceWithFullTank = (tankCapacity / avgFuelConsumption) * distance100km;
+        double avgFuelConsumptionWithAcOn = getAvgFuelConsumption() + ADD_FUEL_WHEN_AC_IS_ON;
+        double addFuelConsumptionWhenDriveWithLoad = getLoadWeight() / LOAD_IN_KG * ADD_FUEL_WHEN_DRIVE_WITH_LOAD;
         if (isAcOn() && loadWeight > 0) {
-            return (tankCapacity / (avgFuelConsumptionWithAcOn + addFuelConsumptionWhenDriveWithLoad)) * distance100km;
+            return avgFuelConsumptionWithAcOn + addFuelConsumptionWhenDriveWithLoad;
         } else if (isAcOn()) {
-            return (tankCapacity / avgFuelConsumptionWithAcOn) * distance100km;
+            return avgFuelConsumptionWithAcOn;
         } else if (!isAcOn() && loadWeight > 0) {
-            return (tankCapacity / (avgFuelConsumption + addFuelConsumptionWhenDriveWithLoad)) * distance100km;
+            return avgFuelConsumption + addFuelConsumptionWhenDriveWithLoad;
         } else {
-            return carDistanceWithFullTank;
+            return avgFuelConsumption;
         }
     }
 }

@@ -17,14 +17,18 @@ public class Car extends Vehicle {
         isAcOn = acOn;
     }
 
-    @Override
     public void turnOnAc() {
-        isAcOn = true;
+        if (!isAcOn) {
+            isAcOn = true;
+            setAvgFuelConsumption(getAvgFuelConsumption() + ADD_FUEL_CONSUMPTION_AC_IS_ON);
+        }
     }
 
-    @Override
-    public void turnAcOff() {
-        isAcOn = false;
+    public void turnOffAc() {
+        if (isAcOn) {
+            isAcOn = false;
+            setAvgFuelConsumption(getAvgFuelConsumption() - ADD_FUEL_CONSUMPTION_AC_IS_ON);
+        }
     }
 
     @Override
@@ -35,16 +39,11 @@ public class Car extends Vehicle {
     }
 
     @Override
-    double distanceInKm() {
-        double avgFuelConsumptionWithAcOn = getAvgFuelConsumption() + ADD_FUEL_CONSUMPTION_AC_IS_ON;
+    public double currentConsumption() {
         double avgFuelConsumption = getAvgFuelConsumption();
-        double tankCapacity = getTankCapacity();
-        double distance100km = 100;
-        double carDistanceWithFullTank = (tankCapacity / avgFuelConsumption) * distance100km;
         if (isAcOn) {
-            return (tankCapacity / avgFuelConsumptionWithAcOn) * distance100km;
-        } else {
-            return carDistanceWithFullTank;
+            avgFuelConsumption += ADD_FUEL_CONSUMPTION_AC_IS_ON;
         }
+        return avgFuelConsumption;
     }
 }

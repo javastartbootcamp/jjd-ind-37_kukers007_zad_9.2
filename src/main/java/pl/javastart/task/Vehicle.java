@@ -5,6 +5,7 @@ public class Vehicle {
     private String name;
     private double tankCapacity;
     private double avgFuelConsumption;
+    static final double DISTANCE_100_KM = 100;
 
     public Vehicle(String name, double tankCapacity, double avgFuelConsumption) {
         this.name = name;
@@ -36,15 +37,12 @@ public class Vehicle {
         this.avgFuelConsumption = avgFuelConsumption;
     }
 
-    double distanceInKm() {
+    public double distanceInKm() {
+        return getTankCapacity() / currentConsumption() * DISTANCE_100_KM;
+    }
+
+    public double currentConsumption() {
         return -1;
-    }
-
-    public void turnOnAc() {
-    }
-
-    public void turnAcOff() {
-
     }
 
     public void printInfo() {
