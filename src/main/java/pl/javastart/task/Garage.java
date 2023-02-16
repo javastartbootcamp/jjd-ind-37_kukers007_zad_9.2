@@ -13,7 +13,7 @@ public class Garage {
         vehicles[6] = new Truck("Zuk", 600, 50, false, 200);
         vehicles[7] = new Truck("Nysa", 500, 25, false, 200);
         vehicles[8] = new Truck("MAN", 500, 25, false, 400);
-        vehicles[9] = new Truck("SCANIA", 300, 30, false, 1660);
+        vehicles[9] = new Truck("SCANIA", 300, 30, false, 0);
 
         for (Car vehicle : vehicles) {
             System.out.println();

@@ -42,7 +42,7 @@ public class Vehicle {
     }
 
     public double currentConsumption() {
-        return -1;
+        return getAvgFuelConsumption();
     }
 
     public void printInfo() {

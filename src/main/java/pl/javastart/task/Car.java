@@ -13,22 +13,12 @@ public class Car extends Vehicle {
         return isAcOn;
     }
 
-    public void setAcOn(boolean acOn) {
-        isAcOn = acOn;
-    }
-
     public void turnOnAc() {
-        if (!isAcOn) {
-            isAcOn = true;
-            setAvgFuelConsumption(getAvgFuelConsumption() + ADD_FUEL_CONSUMPTION_AC_IS_ON);
-        }
+        isAcOn = true;
     }
 
     public void turnOffAc() {
-        if (isAcOn) {
-            isAcOn = false;
-            setAvgFuelConsumption(getAvgFuelConsumption() - ADD_FUEL_CONSUMPTION_AC_IS_ON);
-        }
+        isAcOn = false;
     }
 
     @Override
@@ -42,7 +32,7 @@ public class Car extends Vehicle {
     public double currentConsumption() {
         double avgFuelConsumption = getAvgFuelConsumption();
         if (isAcOn) {
-            avgFuelConsumption += ADD_FUEL_CONSUMPTION_AC_IS_ON;
+            return avgFuelConsumption + ADD_FUEL_CONSUMPTION_AC_IS_ON;
         }
         return avgFuelConsumption;
     }
